@@ -4,20 +4,20 @@ BWMR (Bayesian Weighted Mendelian Randomization), is an efficient statistical me
 
 # Installation
 To install the development version of BWMR, it's easiest to use the 'devtools' package.
-'''
+```
 # install.packages("devtools")
 library(devtools)
 install_github("jiazhao97/BWMR")
-'''
+```
 
 
 # Usage
 The main function is *BWMR*. You can find an example by running
-'''
+```
 library(ggplot2)
 library(BWMR)
 example(BWMR)
-'''
+```
 
 
 # Development
