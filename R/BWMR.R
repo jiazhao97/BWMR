@@ -23,7 +23,7 @@ library("reshape2")
 
 # known parameters for the prior distributions
 sqsigma0 <- (1e+6)^2
-alpha <- 10
+alpha <- 100
 
 
 ## define function to calculate ELBO and E[Lc] (the approximate log-likelihood)
