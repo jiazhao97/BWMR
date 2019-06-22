@@ -226,5 +226,5 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
   message("Estimate of beta=", mu_beta, ", se of beta=", se_beta, ", P-value=", P_value, ".")
   
   ## output
-  output <- list(beta=mu_beta, se_beta=se_beta, P_value=P_value, plot1=plot1, plot2=plot2, plot3=plot3, plot4=plot4)
+  output <- list(beta=mu_beta, se_beta=se_beta, P_value=P_value, weights=pi_w, plot1=plot1, plot2=plot2, plot3=plot3, plot4=plot4)
 }
