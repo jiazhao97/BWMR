@@ -7,14 +7,12 @@
 ## sigmaY:                          standard error of SNP-outcome effect;
 ##
 ### OUTPUT
-## beta      (result[[1]]):         the estimate of beta;
-## se_beta   (result[[2]]):         the estimate the standard error of beta;
-## P-value   (result[[3]]):         P-value
-## plot1     (result[[4]]):         Plot of Data with Standard Error Bar;
-## plot2     (result[[5]]):         Trace Plot of Logarithm of Approximate Data Likelihood;
-## plot3     (result[[6]]):         Estimate of Weight of Each Data Point;
-## plot4     (result[[7]]):         Plot of Weighted Data and Its Regression Result.
-
+## beta                             the estimate of beta;
+## se_beta                          the estimate the standard error of beta;
+## P-value                          P-value
+## tau                              the estimate of tau
+## sigma                            the estimate of sigma
+## pi                               posterior mean of pi
 
 # packages
 library("ggplot2")
@@ -175,5 +173,5 @@ BWMR_quick <- function(gammahat, Gammahat, sigmaX, sigmaY) {
   P_value <- pchisq(W, 1, lower.tail=F)
   
   ## output
-  output <- list(beta=mu_beta, se_beta=se_beta, P_value=P_value, tau=sqrt(sqtau), mu_pi=a/(a+b))
+  output <- list(beta=mu_beta, se_beta=se_beta, P_value=P_value, tau=sqrt(sqtau), sigma=sqrt(sqsigma), mu_pi=a/(a+b))
 }
