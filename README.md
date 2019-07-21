@@ -12,7 +12,7 @@ install_github("jiazhao97/BWMR")
 
 
 # Usage
-The main function is *BWMR*. You can find an example by running
+[The 'BWMR' vignette](https://github.com/jiazhao97/BWMR/blob/master/vignettes/BWMR_package.pdf?raw=true) will provide a good start point for Mendelian randomization analysis using BWMR package. The following help page will also provide quick references for BWMR package and the example command lines:
 ```
 library(ggplot2)
 library(BWMR)
