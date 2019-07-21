@@ -131,7 +131,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
   plot1 <- ggplot(data = df1, aes(x = gammahat, y = Gammahat)) +  
     geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), color="gray59") +
     geom_errorbarh(aes(xmin = gammahat - sigmaX, xmax = gammahat + sigmaX, height = 0), color="gray59") +
-    labs(x = "gammahat (SNP-exposure effect)", y = "Gammahat (SNP-outcome effect)", title = "Plot1: Plot of Data with Standard Error Bar")
+    labs(x = "SNP-exposure effect", y = "SNP-outcome effect", title = "Plot1: Plot of data with standard error bar")
   
   # Plot2: Trace Plot of Logarithm of Approximate Data Likelihood
   iteration <- seq(1, (length(ELBO_set)), by = 1)
@@ -140,7 +140,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     ELBO_iter = ELBO_set
   )
   plot2 <- ggplot(df2, aes(x=iteration, y=ELBO_iter)) + geom_line(size = 0.5, color = "tomato1") + geom_point(size=0.5, color = "tomato1") +
-    labs(x = "Iteration", y="The Approximation of Logarithm of the Likelihood", title = "Plot2: Trace Plot of Logarithm of Approximate Data Likelihood")
+    labs(x = "iteration", y="elbo", title = "Plot2: Plot of evidence lower bound (elbo)")
   
   # Plot3: Estimation of Weight of Each Data Point
   serial_number <- seq(1, N, by = 1)
@@ -149,7 +149,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     serial_number = serial_number
   )
   plot3 <- ggplot(data = df3, mapping = aes(x = factor(serial_number), y = weight, fill = weight)) + geom_bar(stat = 'identity', position = 'dodge') +
-    labs(x = "Data Point No.", y = "Weight", title = "Plot3: Estimation of Weight of Each Data Point") +
+    labs(x = "observation No.", y = "weight", title = "Plot3: Posterior mean of weight of each observation") +
     ylim(0, 1)
   # scale_x_discrete(breaks = seq(10, N, 20)) +
   
@@ -165,7 +165,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY)) +
     geom_errorbarh(aes(xmin = gammahat - sigmaX, xmax = gammahat + sigmaX, height = 0)) +
     geom_abline(intercept=0, slope=mu_beta, color="#990000", linetype="dashed", size=1) +
-    labs(x = "gammahat (SNP-exposure effect)", y = "Gammahat (SNP-outcome effect)", title = "Plot4: Plot of Weighted Data and Its Regression Result")
+    labs(x = "SNP-exposure effect", y = "SNP-outcome effect", title = "Plot4: Plot of weighted data and its regression result")
   
   
   ### LRVB and Standard Error ###
