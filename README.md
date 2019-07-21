@@ -20,6 +20,11 @@ example(BWMR)
 ```
 
 
+# Reference
+Jia Zhao, Jingsi Ming, Xianghong Hu, Gang Chen, Jin Liu, Can Yang; Bayesian weighted Mendelian randomization for causal
+inference based on summary statistics.
+
+
 # Development
 This R package is developed by Jia Zhao.
 
