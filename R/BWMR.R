@@ -128,7 +128,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     sigmaY = sigmaY
   )
   plot1 <- ggplot(data = df1, aes(x = gammahat, y = Gammahat)) +  
-    geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), color="gray59") +
+    geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), color="gray59", size = 1) +
     geom_errorbarh(aes(xmin = gammahat - sigmaX, xmax = gammahat + sigmaX, height = 0), color="gray59") +
     labs(x = "SNP-exposure effect", y = "SNP-outcome effect", title = "Plot1: Plot of data with standard error bar")
   
