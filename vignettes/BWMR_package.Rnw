@@ -1,0 +1,152 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+\documentclass[11pt]{article}
+%% Set my margins
+\setlength{\oddsidemargin}{0.0truein}
+\setlength{\evensidemargin}{0.0truein}
+\setlength{\textwidth}{6.5truein}
+\setlength{\topmargin}{0.0truein}
+\setlength{\textheight}{9.0truein}
+\setlength{\headsep}{0.0truein}
+\setlength{\headheight}{0.0truein}
+\setlength{\topskip}{0pt}
+%% End of margins
+
+% \usepackage{subfigure}
+%%\pagestyle{myheadings}
+%%\markboth{$Date$\hfil$Revision$}{\thepage}
+\usepackage[pdftex,
+bookmarks,
+bookmarksopen,
+pdfauthor={Jia Zhao},
+pdftitle={BWMR Vignette}]
+{hyperref}
+
+\title{`\texttt{BWMR}' Package for causal inference based on summary statistics}
+\author{Jia Zhao$~^{1,2}$, Jingsi Ming$~^1$, Xianghong Hu$~^{3,4}$, \\
+Gang Chen$~^5$, Jin Liu$~^6$, and Can Yang$~^1$\\
+\\
+$~^1$ Department of Mathematics, The Hong Kong University of Science and Technology,\\ Hong Kong.\\
+$~^2$ School of Mathematical Sciences, Beijing Normal University, Beijing, China.\\
+$~^3$ Department of Mathematics, Hong Kong Baptist University, Hong Kong.\\
+$~^4$ Department of Mathematics, Southern University of Science and Technology,\\ Shenzhen, China.\\
+$~^5$ The WeGene Company, Shenzhen, China.\\
+$~^6$ Centre for Quantitative Medicine, Duke-NUS Medical School, Singapore.\\
+}
+
+\date{\today}
+
+% \SweaveOpts{engine=R, echo=TRUE, pdf=TRUE}
+
+\begin{document}
+
+% \SweaveOpts{concordance=TRUE}
+\maketitle
+
+\section{Overview}
+
+This vignette provides an introduction to the `\texttt{BWMR}' package.
+R package `\texttt{BWMR}' implements BWMR (Bayesian Weighted Mendelian Randomization),
+an efficient statistical approach for causal inference based on summary statistics. 
+It provides model parameter estimation as well as statistical inference.
+
+The package can be loaded with the command:
+
+<<BWMR-prelim>>=
+library("BWMR")
+@
+
+R package `\texttt{ggplot2}' is required if users are of interest in the visualization of data and MR result.
+<<ggplot2-prelim>>=
+library("ggplot2")
+@
+
+This vignette is organized as follows.
+Section \ref{preprocessing} discusses the data processing precedure for the BWMR.
+Section \ref{fitting} explains command lines for performing MR analysis and visualizing data and MR result using the `\texttt{BWMR}' package.
+
+Please feel free to contact Jia Zhao at \texttt{jiazh0103@163.com} for any questions or suggestions regarding the `\texttt{BWMR}' package.
+
+\section{Workflow}\label{workflow}
+
+\subsection{Data preprocessing for the BWMR}\label{preprocessing}
+
+In this vignette, we use an ExampleData (LDL cholesterol - dyslipidemia) from our real data analysis in the package. 
+Users can find the SNP-exposure effects in the `\texttt{ExampleData\$beta.exposure}', the SNP-outcome effects in the `\texttt{ExampleData\$beta.outcome}', standard errors of SNP-exposure effects and SNP-outcome effects in `\texttt{ExampleData\$se.exposure}' and `\texttt{ExampleData\$se.outcome} respectively.
+<<BWMRExample-prelim>>=
+
+data(ExampleData)
+head(ExampleData)
+@
+When we analyze real data, we need to ensure that the summary statistics for `\texttt{BWMR}' are obtained through the following data preprocessing process:
+
+1. Select SNPs that are significant for the exposure as instrument variables (IVs) by a $p$-value threshold (e.g. GWAS significant threshold $5\times 10^{-8}$).
+
+2. Perform LD clumping to ensure that the IVs are independent.
+
+3. Extract the IVs from summary-level database for the outcomes of interest.
+
+4. Perform harmonisation of effects to ensure that SNP-exposure effect and SNP-outcome effect correspond to the same allele.
+
+5. Scale the summary-level data if necessary.
+
+\subsection{Fitting the BWMR}\label{fitting}
+
+We are now ready to fit BWMR using the data described above:
+<<BWMR-fit, message=FALSE>>=
+fit.BWMR <- BWMR(gammahat = ExampleData$beta.exposure, 
+                 Gammahat = ExampleData$beta.outcome,
+                 sigmaX = ExampleData$se.exposure, 
+                 sigmaY = ExampleData$se.outcome)
+@
+The MR results are as follows:
+<<BWMR-beta>>=
+cat("Effect of risk exposure on the outcome of interest: ", fit.BWMR$beta)
+cat("Standard error of the effect of exposure on outcome: ", fit.BWMR$se_beta)
+cat("p-value of the effect of exposure on outcome: ", fit.BWMR$P_value)
+@
+
+Besides, the `\texttt{BWMR}' function also provides the visualization of data and MR result.
+
+Plot of data with standard error bar:
+<<plot1, fig.height=3, fig.width=4>>=
+fit.BWMR$plot1
+@
+
+Plot of evidence lower bound (elbo):
+<<plot2, fig.height=3, fig.width=4>>=
+fit.BWMR$plot2
+@
+
+Posterior mean of weight of each observation:
+<<plot3, fig.height=3, fig.width=7>>=
+fit.BWMR$plot3
+@
+
+Plot of weighted data and its regression result:
+<<plot4, fig.height=3, fig.width=6>>=
+fit.BWMR$plot4
+@
+
+If we are only interested in the MR results, we can run the `\texttt{BWMR\_quick}' function without visualization, which is more time-efficient.
+<<BWMR_quick-fit, message=FALSE>>=
+fit.BWMR_quick <- BWMR_quick(gammahat = ExampleData$beta.exposure, 
+                             Gammahat = ExampleData$beta.outcome,
+                             sigmaX = ExampleData$se.exposure, 
+                             sigmaY = ExampleData$se.outcome)
+@
+
+<<BWMR_quick-fit-result>>=
+fit.BWMR_quick$beta
+fit.BWMR_quick$se_beta
+fit.BWMR_quick$P_value
+@
+
+
+
+\begin{thebibliography}{99}
+Jia Zhao, Jingsi Ming, Xianghong Hu, Gang Chen, Jin Liu, Can Yang; Bayesian weighted Mendelian randomization for causal
+inference based on summary statistics.
+\end{thebibliography}
+
+
+\end{document}
