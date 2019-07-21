@@ -128,7 +128,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     sigmaY = sigmaY
   )
   plot1 <- ggplot(data = df1, aes(x = gammahat, y = Gammahat)) +  
-    geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), color="gray59", size = 0.5) +
+    geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), color="gray59", size = 0.3) +
     geom_errorbarh(aes(xmin = gammahat - sigmaX, xmax = gammahat + sigmaX, height = 0), color="gray59") +
     labs(x = "SNP-exposure effect", y = "SNP-outcome effect", title = "Plot1: Plot of data with standard error bar")
   
@@ -160,8 +160,8 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     sqsigmaY = sqsigmaY,
     w = pi_w
   )
-  plot4 <- ggplot(df4, aes(x=gammahat, y=Gammahat, color=w)) + geom_point(size = 0.5) +
-    geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), size = 0.5) +
+  plot4 <- ggplot(df4, aes(x=gammahat, y=Gammahat, color=w)) + geom_point(size = 0.3) +
+    geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), size = 0.3) +
     geom_errorbarh(aes(xmin = gammahat - sigmaX, xmax = gammahat + sigmaX, height = 0)) +
     geom_abline(intercept=0, slope=mu_beta, color="#990000", linetype="dashed", size=0.5) +
     labs(x = "SNP-exposure effect", y = "SNP-outcome effect", title = "Plot4: Plot of weighted data and its regression result")
