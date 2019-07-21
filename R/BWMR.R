@@ -164,7 +164,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), size = 0.3) +
     geom_errorbarh(aes(xmin = gammahat - sigmaX, xmax = gammahat + sigmaX, height = 0)) +
     geom_abline(intercept=0, slope=mu_beta, color="#990000", linetype="dashed", size=0.5) +
-    theme(axis.text.x = element_text(size = 10)) +
+    theme(axis.text.x = element_text(size = 5)) +
     labs(x = "SNP-exposure effect", y = "SNP-outcome effect", title = "Plot4: Plot of weighted data and its regression result")
   
   
