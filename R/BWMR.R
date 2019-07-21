@@ -16,6 +16,9 @@
 ## plot4                            Plot of Weighted Data and Its Regression Result.
 
 
+# packages
+library("ggplot2")
+
 
 # known parameters for the prior distributions
 sqsigma0 <- (1e+6)^2
@@ -124,7 +127,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     sigmaX = sigmaX,
     sigmaY = sigmaY
   )
-  plot1 <- ggplot2::ggplot(data = df1, aes(x = gammahat, y = Gammahat)) +  
+  plot1 <- ggplot(data = df1, aes(x = gammahat, y = Gammahat)) +  
     geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY), color="gray59") +
     geom_errorbarh(aes(xmin = gammahat - sigmaX, xmax = gammahat + sigmaX, height = 0), color="gray59") +
     labs(x = "SNP-exposure effect", y = "SNP-outcome effect", title = "Plot1: Plot of data with standard error bar")
@@ -135,7 +138,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     iteration = iteration,
     ELBO_iter = ELBO_set
   )
-  plot2 <- ggplot2::ggplot(df2, aes(x=iteration, y=ELBO_iter)) + geom_line(size = 0.5, color = "tomato1") + geom_point(size=0.5, color = "tomato1") +
+  plot2 <- ggplot(df2, aes(x=iteration, y=ELBO_iter)) + geom_line(size = 0.5, color = "tomato1") + geom_point(size=0.5, color = "tomato1") +
     labs(x = "iteration", y="elbo", title = "Plot2: Plot of evidence lower bound (elbo)")
   
   # Plot3: Posterior Mean of Weight of Each Observation
@@ -144,7 +147,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     weight = pi_w,
     serial_number = serial_number
   )
-  plot3 <- ggplot2::ggplot(data = df3, mapping = aes(x = factor(serial_number), y = weight, fill = weight)) + geom_bar(stat = 'identity', position = 'dodge') +
+  plot3 <- ggplot(data = df3, mapping = aes(x = factor(serial_number), y = weight, fill = weight)) + geom_bar(stat = 'identity', position = 'dodge') +
     labs(x = "observation No.", y = "weight", title = "Plot3: Posterior mean of weight of each observation") +
     ylim(0, 1)
   # scale_x_discrete(breaks = seq(10, N, 20)) +
@@ -157,7 +160,7 @@ BWMR <- function(gammahat, Gammahat, sigmaX, sigmaY) {
     sqsigmaY = sqsigmaY,
     w = pi_w
   )
-  plot4 <- ggplot2::ggplot(df4, aes(x=gammahat, y=Gammahat, color=w)) + geom_point(size=2.5) +
+  plot4 <- ggplot(df4, aes(x=gammahat, y=Gammahat, color=w)) + geom_point(size=2.5) +
     geom_pointrange(aes(ymin = Gammahat - sigmaY, ymax = Gammahat + sigmaY)) +
     geom_errorbarh(aes(xmin = gammahat - sigmaX, xmax = gammahat + sigmaX, height = 0)) +
     geom_abline(intercept=0, slope=mu_beta, color="#990000", linetype="dashed", size=1) +
