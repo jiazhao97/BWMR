@@ -21,7 +21,7 @@ example(BWMR)
 
 
 # Reference
-Jia Zhao, Jingsi Ming, Xianghong Hu, Gang Chen, Jin Liu, Can Yang, Bayesian weighted Mendelian randomization for causal inference based on summary statistics, Bioinformatics, , btz749, https://doi.org/10.1093/bioinformatics/btz749
+Jia Zhao, Jingsi Ming, Xianghong Hu, Gang Chen, Jin Liu, Can Yang, Bayesian weighted Mendelian randomization for causal inference based on summary statistics, Bioinformatics, btz749, https://doi.org/10.1093/bioinformatics/btz749
 
 
 # Development
