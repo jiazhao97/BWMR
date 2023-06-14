@@ -27,3 +27,23 @@ Jia Zhao, Jingsi Ming, Xianghong Hu, Gang Chen, Jin Liu, Can Yang, Bayesian weig
 # Development
 This R package is developed by Jia Zhao.
 
+
+# Updates
+The BWMR software was created using R version 3.6. However, with the updates in R base, users might face difficulties while using BWMR on R version 4.x. To address this issue, an updated version of BWMR's source code has been uploaded into the "updates" folder. 
+
+To use the updated version, please download this Github repository, and run BWMR with following code (an example):
+```
+library(ggplot2)
+source("BWMR-master/updates/BWMR_updated.R") #load the updated version of BWMR's source code
+load("BWMR-master/data/ExampleData.RData") #load example data
+
+fit.BWMR <- BWMR(gammahat = ExampleData$beta.exposure,
+                 Gammahat = ExampleData$beta.outcome,
+                 sigmaX = ExampleData$se.exposure,
+                 sigmaY = ExampleData$se.outcome) #run BWMR
+fit.BWMR$plot1
+fit.BWMR$plot2
+fit.BWMR$plot3
+fit.BWMR$plot4
+```
+
